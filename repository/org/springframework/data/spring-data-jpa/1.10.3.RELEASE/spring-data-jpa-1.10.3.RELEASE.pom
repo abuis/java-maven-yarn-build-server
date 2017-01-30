@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.springframework.data</groupId>
 	<artifactId>spring-data-jpa</artifactId>
-	<version>1.10.3.BUILD-SNAPSHOT</version>
+	<version>1.10.3.RELEASE</version>
 
 	<name>Spring Data JPA</name>
 	<description>Spring Data module for JPA repositories.</description>
@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.data.build</groupId>
 		<artifactId>spring-data-parent</artifactId>
-		<version>1.8.3.BUILD-SNAPSHOT</version>
+		<version>1.8.3.RELEASE</version>
 	</parent>
 
 	<properties>
@@ -27,7 +27,7 @@
 		<hsqldb1>1.8.0.10</hsqldb1>
 		<jpa>2.0.0</jpa>
 		<openjpa>2.4.1</openjpa>
-		<springdata.commons>1.12.3.BUILD-SNAPSHOT</springdata.commons>
+		<springdata.commons>1.12.3.RELEASE</springdata.commons>
 
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 
@@ -51,7 +51,12 @@
 			<properties>
 				<hibernate>4.2.24-SNAPSHOT</hibernate>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>jboss</id>
+					<url>https://repository.jboss.org/nexus/content/repositories/public</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>hibernate-43</id>
@@ -64,7 +69,12 @@
 			<properties>
 				<hibernate>4.3.12-SNAPSHOT</hibernate>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>jboss</id>
+					<url>https://repository.jboss.org/nexus/content/repositories/public</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>hibernate-5</id>
@@ -77,7 +87,12 @@
 			<properties>
 				<hibernate>5.0.10-SNAPSHOTS</hibernate>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>jboss</id>
+					<url>https://repository.jboss.org/nexus/content/repositories/public</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>hibernate-51</id>
@@ -90,7 +105,12 @@
 			<properties>
 				<hibernate>5.1.1-SNAPSHOT</hibernate>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>jboss</id>
+					<url>https://repository.jboss.org/nexus/content/repositories/public</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>hibernate-52</id>
@@ -105,21 +125,36 @@
 				<hibernate>5.2.3-SNAPSHOT</hibernate>
 				<hibernate.artifact>hibernate-core</hibernate.artifact>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>jboss</id>
+					<url>https://repository.jboss.org/nexus/content/repositories/public</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>eclipselink-next</id>
 			<properties>
 				<eclipselink>2.6.3-SNAPSHOT</eclipselink>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>oss-sonatype</id>
+					<url>https://oss.sonatype.org/content/groups/staging</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>eclipselink-27-next</id>
 			<properties>
 				<eclipselink>2.7.0-SNAPSHOT</eclipselink>
 			</properties>
-			
+			<repositories>
+				<repository>
+					<id>oss-sonatype</id>
+					<url>https://oss.sonatype.org/content/groups/staging</url>
+				</repository>
+			</repositories>
 		</profile>
 		<profile>
 			<id>release</id>
@@ -553,8 +588,18 @@
 		</plugins>
 	</build>
 
-	
+	<repositories>
+		<repository>
+			<id>spring-libs-release</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
 
-	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-plugins-release</id>
+			<url>https://repo.spring.io/plugins-release</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
