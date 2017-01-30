@@ -25,6 +25,9 @@ RUN mkdir /root/.m2 && \
     echo "export M2_HOME=/opt/apache-maven-3.3.9" >> /root/.bashrc && \
     echo "export PATH=$PATH:/opt/apache-maven-3.3.9/bin" >> /root/.bashrc
 
+# Copy maven repository across
+ADD repository/ /root/.m2/repository/
+
 # Define working directory.
 WORKDIR /data
 
