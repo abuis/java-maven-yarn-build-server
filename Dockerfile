@@ -22,7 +22,7 @@ ENV MAVEN_VERSION=3.5.3
 
 #RUN pip install boto3 # required for s3_upload.py
 
-mkdir /opt
+RUN mkdir /opt
 
 RUN cd /opt && curl -o- http://apache.mirror.serversaustralia.com.au/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz | tar xz
 RUN cd /opt && curl -o- http://apache.mirror.serversaustralia.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar xz
