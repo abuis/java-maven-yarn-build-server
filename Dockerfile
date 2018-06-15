@@ -2,6 +2,8 @@
 FROM frolvlad/alpine-oraclejdk8:latest
 
 ENV MAVEN_VERSION=3.5.3 
+ENV M2_HOME="/opt/apache-maven-${MAVEN_VERSION}"
+ENV PATH="$PATH:/opt/apache-maven-${MAVEN_VERSION}/bin"
 
 # Install Yarn package repository
 #RUN apt-get update && apt-get install -y apt-transport-https ca-certificates apt-utils
@@ -21,11 +23,11 @@ ENV MAVEN_VERSION=3.5.3
 #RUN apt-get install -y yarn=0.17.10-1
 
 #RUN pip install boto3 # required for s3_upload.py
-RUN apk add curl
+RUN apk add --no-cache bash
+RUN apk add --no-cache curl
 
 RUN mkdir /opt
 
-RUN cd /opt && curl -o- http://apache.mirror.serversaustralia.com.au/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz | tar xz
 RUN cd /opt && curl -o- http://apache.mirror.serversaustralia.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar xz
 RUN mkdir /root/.m2 && \
     echo "export M2_HOME=/opt/apache-maven-${MAVEN_VERSION}" >> /root/.bashrc && \
@@ -35,7 +37,7 @@ RUN mkdir /root/.m2 && \
 #ADD repository/ /root/.m2/repository/
 
 # Install Yarn 
-RUN apk add yarn
+RUN apk add --no-cache yarn
 
 # Define working directory.
 WORKDIR /data
