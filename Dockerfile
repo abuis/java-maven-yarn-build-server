@@ -1,9 +1,16 @@
 # Pull base image.
 FROM frolvlad/alpine-oraclejdk8:latest
 
+# Define versions and environment
 ENV MAVEN_VERSION=3.5.3 
+ENV NPM_VERSION=8.11.3
+ENV YARN_VERSION=1.7.0
+
 ENV M2_HOME="/opt/apache-maven-${MAVEN_VERSION}"
-ENV PATH="$PATH:/opt/apache-maven-${MAVEN_VERSION}/bin"
+ENV NODE_HOME="/opt/node-v${NPM_VERSION}-linux-x64"
+ENV YARN_HOME="/opt/yarn-v${YARN_VERSION}"
+
+ENV PATH="$PATH:${JAVA_HOME}/bin:${M2_HOME}/bin:${NODE_HOME}/bin:${YARN_HOME}/bin"
 
 # Install Yarn package repository
 #RUN apt-get update && apt-get install -y apt-transport-https ca-certificates apt-utils
@@ -23,21 +30,35 @@ ENV PATH="$PATH:/opt/apache-maven-${MAVEN_VERSION}/bin"
 #RUN apt-get install -y yarn=0.17.10-1
 
 #RUN pip install boto3 # required for s3_upload.py
+
+# Install base utilities
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
+RUN apk add --no-cache libstdc++
 
+# Create /opt directory
 RUN mkdir /opt
 
+# Install Maven
 RUN cd /opt && curl -o- http://apache.mirror.serversaustralia.com.au/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar xz
-RUN mkdir /root/.m2 && \
-    echo "export M2_HOME=/opt/apache-maven-${MAVEN_VERSION}" >> /root/.bashrc && \
-    echo "export PATH=$PATH:/opt/apache-maven-${MAVEN_VERSION}/bin" >> /root/.bashrc
 
 # Copy maven repository across
 #ADD repository/ /root/.m2/repository/
 
+# Install NodeJS
+RUN cd /opt && curl -o- https://nodejs.org/dist/v8.11.3/node-v8.11.3-linux-x64.tar.gz | tar xz
+
 # Install Yarn 
-RUN apk add --no-cache yarn
+RUN cd /opt && curl -L -o- https://github.com/yarnpkg/yarn/releases/download/v${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz | tar xz
+
+# Create bashrc
+RUN mkdir /root/.m2 && \
+    echo "export JAVA_HOME=${JAVA_HOME}" >> /root/.bashrc && \
+    echo "export M2_HOME=/opt/apache-maven-${MAVEN_VERSION}" >> /root/.bashrc && \
+    echo "export NODE_HOME=/opt/node-v${NPM_VERSION}-linux-x64" >> /root/.bashrc && \
+    echo "export YARN_HOME=/opt/yarn-v${YARN_VERSION}" >> /root/.bashrc && \
+    echo "export PATH=$PATH" >> /root/.bashrc
+
 
 # Define working directory.
 WORKDIR /data
