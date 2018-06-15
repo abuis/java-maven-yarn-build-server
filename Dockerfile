@@ -21,6 +21,7 @@ ENV MAVEN_VERSION=3.5.3
 #RUN apt-get install -y yarn=0.17.10-1
 
 #RUN pip install boto3 # required for s3_upload.py
+RUN apk add curl
 
 RUN mkdir /opt
 
