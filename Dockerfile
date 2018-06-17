@@ -18,6 +18,8 @@ ENV YARN_HOME="/opt/yarn-v${YARN_VERSION}"
 
 ENV PATH="$PATH:${JAVA_HOME}/bin:${M2_HOME}/bin:${NODE_HOME}/bin:${YARN_HOME}/bin"
 
+ENV LD_LIBRARY_PATH="/usr/glibc-compat/lib/libc.so.6"
+
 # Install Yarn package repository
 #RUN apt-get update && apt-get install -y apt-transport-https ca-certificates apt-utils
 #RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -54,8 +56,6 @@ RUN apk add --no-cache git
 # - https://github.com/docker/docker-ce/blob/v17.09.0-ce/components/engine/hack/make.sh#L149
 # - https://github.com/golang/go/blob/go1.9.1/src/net/conf.go#L194-L275
 # - docker run --rm debian:stretch grep '^hosts:' /etc/nsswitch.conf
-RUN cat /etc/nsswitch.conf
-
 RUN echo 'hosts: files dns mdns4_minimal mdns4' > /etc/nsswitch.conf
 
 
