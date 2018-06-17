@@ -46,6 +46,8 @@ RUN apk add --no-cache curl
 RUN apk add --no-cache tar
 RUN apk add --no-cache libstdc++
 RUN apk add --no-cache fontconfig
+RUN apk add --no-cache zlib
+RUN apk add --no-cache libzip
 
 RUN apk add --no-cache git
 
