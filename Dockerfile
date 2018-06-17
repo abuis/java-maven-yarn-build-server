@@ -41,6 +41,7 @@ ENV PATH="$PATH:${JAVA_HOME}/bin:${M2_HOME}/bin:${NODE_HOME}/bin:${YARN_HOME}/bi
 RUN apk add --no-cache ca-certificates
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
+RUN apk add --no-cache tar
 RUN apk add --no-cache libstdc++
 
 RUN apk add --no-cache git
@@ -63,11 +64,7 @@ RUN set -ex; \
 # + wget -O docker.tgz https://download.docker.com/linux/static/stable/x86_64/docker-17.03.1-ce.tgz
 # Connecting to download.docker.com (54.230.87.253:443)
 # wget: error getting response: Connection reset by peer
-	apk add --no-cache --virtual .fetch-deps \
-		curl \
-		tar \
-	; \
-	\
+	
 # this "case" statement is generated via "update.sh"
 	apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
@@ -90,8 +87,6 @@ RUN set -ex; \
 		--directory /usr/local/bin/ \
 	; \
 	rm docker.tgz; \
-	\
-	apk del .fetch-deps; \
 	\
 	dockerd -v; \
 	docker -v
