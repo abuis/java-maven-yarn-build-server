@@ -97,6 +97,10 @@ RUN set -ex; \
 COPY modprobe.sh /usr/local/bin/modprobe
 COPY docker-entrypoint.sh /usr/local/bin/
 
+# Install docker compose
+RUN apk add --no-cache py-pip openssl bash
+RUN pip install docker-compose
+
 
 # Create /opt directory
 RUN mkdir /opt
